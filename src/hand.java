@@ -6,4 +6,7 @@ public class hand {
     hand(){
         value = 0;
     }
+    String handToString(){
+        return null;
+    }
 }
