@@ -1,13 +1,21 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class deck {
 
-    ArrayList<card> cards;
+    private ArrayList<card> cards;
+    private Random r;
 
     deck() {
-        cards = new ArrayList<card>();
-        for (int deck = 0; deck < 3; ++deck) {
+        shuffle();
+        r = new Random();
+    }
 
+    private void shuffle() {
+        // sets cards to a new 3 deck arraylist
+        if (cards.size() != 0)
+            return;
+        for (int deck = 0; deck < 3; ++deck) {
             for (int suit = 0; suit < 4; ++suit) {
                 card.suitEnum tempEnum = card.suitEnum.Clubs;
                 for (int value = 2; value <= 10; ++value) {
@@ -33,11 +41,33 @@ public class deck {
                     }
                     cards.add(new card(value, Integer.toString(value), tempEnum));
                 }
-                cards.add(new card(10,"J",tempEnum));
-                cards.add(new card(10,"Q",tempEnum));
-                cards.add(new card(10,"K",tempEnum));
-                cards.add(new card(11,"A",tempEnum));
+                cards.add(new card(10, "J", tempEnum));
+                cards.add(new card(10, "Q", tempEnum));
+                cards.add(new card(10, "K", tempEnum));
+                cards.add(new card(11, "A", tempEnum));
             }
         }
+    }
+
+    public class cardAndShuffleFlag {
+        public card aCard;
+        public boolean shuffleFlag;
+
+        cardAndShuffleFlag(card tempCard, boolean tempShuffleFlag) {
+            // shuffle flag is true if needed to shuffle
+            aCard = tempCard;
+            shuffleFlag = tempShuffleFlag;
+        }
+    }
+
+    cardAndShuffleFlag getCard() {
+        // returns a random card, and if the deck needed to be shuffled. Neccessary for
+        // when card counting is created
+        boolean shuffleFlag = false;
+        if (cards.size() == 0) {
+            shuffleFlag = true;
+            shuffle();
+        }
+        return new cardAndShuffleFlag(cards.remove(r.nextInt(cards.size())), shuffleFlag);
     }
 }
