@@ -11,7 +11,7 @@ public class deck {
         r = new Random();
     }
 
-    private void shuffle() {
+    public void shuffle() {
         // sets cards to a new 3 deck arraylist
         if (cards.size() != 0)
             return;
@@ -49,25 +49,12 @@ public class deck {
         }
     }
 
-    public class cardAndShuffleFlag {
-        public card aCard;
-        public boolean shuffleFlag;
 
-        cardAndShuffleFlag(card tempCard, boolean tempShuffleFlag) {
-            // shuffle flag is true if needed to shuffle
-            aCard = tempCard;
-            shuffleFlag = tempShuffleFlag;
-        }
+    public card getCard() {
+        // returns a random card
+        return cards.remove(r.nextInt(cards.size()));
     }
-
-    cardAndShuffleFlag getCard() {
-        // returns a random card, and if the deck needed to be shuffled. Neccessary for
-        // when card counting is created
-        boolean shuffleFlag = false;
-        if (cards.size() == 0) {
-            shuffleFlag = true;
-            shuffle();
-        }
-        return new cardAndShuffleFlag(cards.remove(r.nextInt(cards.size())), shuffleFlag);
+    public int getSize(){
+        return cards.size();
     }
 }
