@@ -9,7 +9,7 @@ public class hand {
         value = 0;
         cards = new ArrayList<card>();
     }
-    String handToString(){
+    public String handToString(){
         String output = "";
         for(int i=0;i<cards.size();++i){
             output.concat(cards.get(i).getRank());
@@ -17,7 +17,22 @@ public class hand {
         }
         return output;
     }
-    void addCard(card aCard){
+    public int addCard(card aCard){
         cards.add(aCard);
+        value+=aCard.getValue();
+        if(value>21) aceChanger();
+        return value;
+    }
+
+    public int getValue(){
+        return value;
+    }
+    private void aceChanger(){
+        for(int i=0; i<cards.size();++i){
+            if(cards.get(i).getValue()==11){
+                cards.get(i).setAce();
+                break;
+            }
+        }
     }
 }
