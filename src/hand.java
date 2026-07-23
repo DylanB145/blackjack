@@ -12,8 +12,8 @@ public class hand {
     public String handToString(){
         String output = "";
         for(int i=0;i<cards.size();++i){
-            output.concat(cards.get(i).getRank());
-            output.concat(" ");
+            output = output.concat(cards.get(i).getRank());
+            output = output.concat(" ");
         }
         return output;
     }
@@ -31,8 +31,13 @@ public class hand {
         for(int i=0; i<cards.size();++i){
             if(cards.get(i).getValue()==11){
                 cards.get(i).setAce();
+                value-=10;
                 break;
             }
         }
+    }
+    public void clearHand(){
+        cards.clear();
+        value = 0;
     }
 }

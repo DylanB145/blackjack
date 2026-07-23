@@ -8,13 +8,13 @@ public class commandLineInterface {
         inputScanner = new Scanner(System.in);
     }
 
-    void printOut(String text) {
+    public void printOut(String text) {
         System.out.println(text);
     }
-    void cleanUp(){
+    public void cleanUp(){
         inputScanner.close();
     }
-    int getBet() {
+    public int getBet() {
         printOut("How much would you like to bet");
         int tempInt = 20;
         boolean flag = true;
@@ -34,15 +34,11 @@ public class commandLineInterface {
         return tempInt;
     }
 
-    String getCommand() {
+    public String getCommand() {
         while (true) {
             String temp = (inputScanner.nextLine()).toLowerCase();
-            if (temp.equals("hit") || temp.equals("stand") || temp.equals("double") || temp.equals("split"))
+            if (temp.equals("hit") || temp.equals("stand") || temp.equals("double") || temp.equals("split")||temp.equals("exit"))
                 return temp;
-            if (temp.equals("exit")) {
-
-                return temp;
-            }
             if (!temp.equals("help")) {
                 printOut("Invalid command");
             }
@@ -50,12 +46,21 @@ public class commandLineInterface {
         }
     }
 
-    void printCommandHelp() {
-        printOut("Valid inputs are: Hit, Stand, Double, and Split. You may also say quit to quit at any time.");
+    public void printCommandHelp() {
+        printOut("Valid inputs are: Hit, Stand, Double, and Split. You may also say exit to exit at any time.");
     }
 
-    void welcomeMessage() {
+    public void welcomeMessage() {
         printOut("This is a basic three deck blackjack game. Dealer stands at a soft 17");
+    }
+    public String playAgain(){
+        printOut("Would you like to play again? (y/n)");
+        while(true){
+            String temp = (inputScanner.nextLine()).toLowerCase();
+                        if (temp.equals("y") || temp.equals("n"))
+                return temp;
+            printOut("invalid answer");
+        }
     }
 
 }

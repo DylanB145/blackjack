@@ -7,8 +7,10 @@ public class deck {
     private Random r;
 
     deck() {
+        cards = new ArrayList<card>();
         shuffle();
         r = new Random();
+ 
     }
 
     public void shuffle() {

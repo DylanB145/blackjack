@@ -1,63 +1,108 @@
 public class main {
-    //variables
+    // variables
     private static commandLineInterface ui;
+    private static game aGame;
+
     public static void main(String[] args) {
         start();
     }
-    private static void start(){
+
+    private static void start() {
         ui = new commandLineInterface();
+        aGame = new game();
         ui.welcomeMessage();
-        round();
+        while (round()) {
+            if(ui.playAgain().equals("n")) break;
+            aGame.clearHands();
+        }
+        ui.printOut("Your final win/loss is ".concat(Integer.toString(aGame.getPlayerGainLoss())));
+        cleanUp();
     }
-    private static void round(){
+
+    private static boolean round() {
         int bet = ui.getBet();
-        //somehow send bet to game and start game
-        //flag is for if game has not yet ended, will probably end up being a method from game
-        boolean flag = true;
-        while(flag){
+        aGame.roundStart();
+        printDealerHand();
+        printPlayerHand();
+        while (!aGame.gameRoundDone) {
             String command = ui.getCommand();
             switch (command) {
                 case "hit":
-                    hit();
+                    if (aGame.hit()) {
+                        playerBusts(bet);
+                        return true;
+                    }
                     break;
-            case "stand":
-                    stand();
-                    flag = false;
+                case "stand":
+                    aGame.gameRoundDone = true;
                     break;
-            case "double":
-                    doubleDown();
+                case "double":
+                    bet = bet * 2;
+                    if (aGame.hit()) {
+                        playerBusts(bet);
+                        return true;
+                    }
+                    aGame.gameRoundDone = true;
                     break;
-            case "split":
-                    split();
+                case "split":
+                    //split();
+                    //split functionality currently not supported, will just stand for now
+                    aGame.gameRoundDone=true;
                     break;
-            case "exit":
-                    exit();
-                    break;
-            
+                case "exit":
+                    return false;
+
                 default:
                     ui.printOut("invalid command, input validation not working in ui");
             }
-            //prints out your hand again and prompts for another input
+            printPlayerHand();
         }
+        dealerRound();
+        endOfRound(bet);
+        return true;
     }
-    private static void cleanUp(){
+
+    private static void cleanUp() {
         ui.cleanUp();
     }
-    private static void hit(){
+
+
+    private static void split() {
 
     }
-    private static void stand(){
-        
+
+    private static void dealerRound() {
+        while(!aGame.dealerAction())
+        printDealerHand();
+        printDealerHand();
     }
-    private static void doubleDown(){
-        
-    }
-    private static void split(){
+
+    private static void playerBusts(int bet) {
+        printPlayerHand();
+        ui.printOut("You busted and lose ".concat(Integer.toString(bet)));
+        aGame.getPlayerWinsResult(bet);
 
     }
-    private static void exit(){
-        ui.printOut("Exiting now");
-        cleanUp();
-        System.exit(0);
+
+    private static void printPlayerHand() {
+        ui.printOut(aGame.playerGetHandToString());
+    }
+
+    private static void printDealerHand() {
+        ui.printOut(aGame.dealerGetHandToString());
+    }
+    private static void endOfRound(int bet){
+        game.WinLoseDraw result = aGame.getPlayerWinsResult(bet);
+        String concatString = "";
+        if(result==game.WinLoseDraw.win){
+            concatString = "You Won ".concat(Integer.toString(bet).concat(" dollars"));
+        }
+        else if(result==game.WinLoseDraw.draw){
+            concatString="It was a draw, your bet has been returned";
+        }
+        else{
+            concatString = "You Lost ".concat(Integer.toString(bet).concat(" dollars"));
+        } 
+        ui.printOut(concatString);
     }
 }

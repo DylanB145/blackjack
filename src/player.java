@@ -23,7 +23,10 @@ public class player {
     public void addGainLoss(int bet){
         gainLoss+=bet;
     }
-    String getHandToString(){
-        return playerHand.toString();
+    public String getHandToString(){
+        return playerHand.handToString();
+    }
+    public void clearHand(){
+        playerHand.clearHand();
     }
 }

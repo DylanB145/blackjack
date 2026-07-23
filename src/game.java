@@ -3,14 +3,17 @@ public class game {
     private deck gameDeck;
     private player gamePlayer;
     private dealer gameDealer;
+    public boolean gameRoundDone;
 
     game() {
         gameDeck = new deck();
         gamePlayer = new player();
         gameDealer = new dealer();
+        gameRoundDone = false;
     }
 
     public void roundStart() {
+        gameRoundDone = false;
         deckCheckShuffle();
         gamePlayer.addCard(gameDeck.getCard());
         gamePlayer.addCard(gameDeck.getCard());
@@ -55,7 +58,21 @@ public class game {
         gamePlayer.addGainLoss(bet * -1);
         return WinLoseDraw.lose;
     }
-    int getPlayerGainLoss(){
+
+    public int getPlayerGainLoss() {
         return gamePlayer.getGainLoss();
+    }
+    public boolean checkPlayerBlackjack(){
+        return gamePlayer.getHandValue()==21;
+    }
+    public String dealerGetHandToString(){
+        return gameDealer.getHandToString();
+    }
+        public String playerGetHandToString(){
+        return gamePlayer.getHandToString();
+    }
+    public void clearHands(){
+        gameDealer.clearHand();
+        gamePlayer.clearHand();
     }
 }
