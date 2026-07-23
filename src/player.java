@@ -8,19 +8,22 @@ public class player {
         gainLoss=0;
         playerHand = new hand();
     }
-    void newRound(){
+    public void newRound(){
         playerHand = new hand();
     }
-    void addCard(card aCard){
+    public void addCard(card aCard){
         playerHand.addCard(aCard);
     }
-    int getHandValue(){
+    public int getHandValue(){
         return playerHand.getValue();
     }
-    int getGainLoss(){
+    public int getGainLoss(){
         return gainLoss;
     }
-    void addGainLoss(int bet){
+    public void addGainLoss(int bet){
         gainLoss+=bet;
+    }
+    String getHandToString(){
+        return playerHand.toString();
     }
 }
