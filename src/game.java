@@ -65,6 +65,9 @@ public class game {
     public boolean checkPlayerBlackjack(){
         return gamePlayer.getHandValue()==21;
     }
+    public boolean checkDealerBlackjack(){
+        return gameDealer.getHandValue()==21;
+    }
     public String dealerGetHandToString(){
         return gameDealer.getHandToString();
     }
