@@ -37,7 +37,7 @@ public class commandLineInterface {
     public String getCommand() {
         while (true) {
             String temp = (inputScanner.nextLine()).toLowerCase();
-            if (temp.equals("hit") || temp.equals("stand") || temp.equals("double") || temp.equals("split")||temp.equals("exit"))
+            if (temp.equals("hit") || temp.equals("stand") || temp.equals("double") || temp.equals("split")||temp.equals("exit")||temp.equals("count"))
                 return temp;
             if (!temp.equals("help")) {
                 printOut("Invalid command");
@@ -47,7 +47,7 @@ public class commandLineInterface {
     }
 
     public void printCommandHelp() {
-        printOut("Valid inputs are: Hit, Stand, Double, and Split. You may also say exit to exit at any time.");
+        printOut("Valid inputs are: Hit, Stand, Double, Split and Count. You may also say exit to exit at any time.");
     }
 
     public void welcomeMessage() {

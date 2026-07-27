@@ -16,6 +16,7 @@ public class main {
             aGame.clearHands();
         }
         ui.printOut("Your final win/loss is ".concat(Integer.toString(aGame.getPlayerGainLoss())));
+        ui.printOut("The count was ".concat(Integer.toString(aGame.getCount())));
         cleanUp();
     }
 
@@ -51,7 +52,9 @@ public class main {
                     break;
                 case "exit":
                     return false;
-
+                case "count":
+                    ui.printOut("The current count is ".concat(Integer.toString(aGame.getCount())));
+                    break;
                 default:
                     ui.printOut("invalid command, input validation not working in ui");
             }

@@ -75,4 +75,7 @@ public class game {
         gameDealer.clearHand();
         gamePlayer.clearHand();
     }
+    public int getCount(){
+        return gameDeck.getCount();
+    }
 }
