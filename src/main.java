@@ -17,6 +17,7 @@ public class main {
             aGame.clearHands();
         }
         ui.printOut("Your final win/loss is ".concat(Integer.toString(aGame.getPlayerGainLoss())));
+        ui.printOut("The count was ".concat(Integer.toString(aGame.getCount())));
         cleanUp();
     }
 
@@ -54,16 +55,18 @@ public class main {
                         break;
                     case "exit":
                         return false;
-
+                    case "count":
+                        ui.printOut("The current count is ".concat(Integer.toString(aGame.getCount())));
+                        break;
                     default:
                         ui.printOut("invalid command, input validation not working in ui");
                 }
                 printPlayerHand();
             }
-  
+
         } else {
-            if(aGame.checkPlayerBlackjack()&&!aGame.checkDealerBlackjack()){
-                bet=(int)Math.round(bet*1.5);
+            if (aGame.checkPlayerBlackjack() && !aGame.checkDealerBlackjack()) {
+                bet = (int) Math.round(bet * 1.5);
             }
         }
         dealerRound();
@@ -103,7 +106,8 @@ public class main {
     private static void endOfRound(int bet) {
         game.WinLoseDraw result = aGame.getPlayerWinsResult(bet);
         String concatString = "";
-        ui.printOut("Scores: Dealer ".concat(Integer.toString(aGame.getDealerHandValue())).concat(" Player ").concat(Integer.toString(aGame.getPlayerHandValue())));
+        ui.printOut("Scores: Dealer ".concat(Integer.toString(aGame.getDealerHandValue())).concat(" Player ")
+                .concat(Integer.toString(aGame.getPlayerHandValue())));
         if (result == game.WinLoseDraw.win) {
             concatString = "You Won ".concat(Integer.toString(bet).concat(" dollars"));
         } else if (result == game.WinLoseDraw.draw) {

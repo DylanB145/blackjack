@@ -91,4 +91,7 @@ public class game {
     public int getDealerHandValue(){
         return gameDealer.getHandValue();
     }
+    public int getCount(){
+        return gameDeck.getCount();
+    }
 }
