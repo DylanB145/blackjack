@@ -63,4 +63,7 @@ public class deck {
         if(cardValue>9)count--;
         else if(cardValue<7)count++;
     }
+    public int getCount(){
+        return count;
+    }
 }
