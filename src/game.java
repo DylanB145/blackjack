@@ -62,20 +62,33 @@ public class game {
     public int getPlayerGainLoss() {
         return gamePlayer.getGainLoss();
     }
-    public boolean checkPlayerBlackjack(){
-        return gamePlayer.getHandValue()==21;
+
+    public boolean checkPlayerBlackjack() {
+        return gamePlayer.getHandValue() == 21;
     }
-    public boolean checkDealerBlackjack(){
-        return gameDealer.getHandValue()==21;
+
+    public boolean checkDealerBlackjack() {
+        return gameDealer.getHandValue() == 21;
     }
-    public String dealerGetHandToString(){
+
+    public String dealerGetHandToString() {
         return gameDealer.getHandToString();
     }
-        public String playerGetHandToString(){
+
+    public String playerGetHandToString() {
         return gamePlayer.getHandToString();
     }
-    public void clearHands(){
+
+    public void clearHands() {
         gameDealer.clearHand();
         gamePlayer.clearHand();
+    }
+    
+    public int getPlayerHandValue(){
+        return gamePlayer.getHandValue();
+    }
+
+    public int getDealerHandValue(){
+        return gameDealer.getHandValue();
     }
 }

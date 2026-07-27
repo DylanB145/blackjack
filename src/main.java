@@ -103,6 +103,7 @@ public class main {
     private static void endOfRound(int bet) {
         game.WinLoseDraw result = aGame.getPlayerWinsResult(bet);
         String concatString = "";
+        ui.printOut("Scores: Dealer ".concat(Integer.toString(aGame.getDealerHandValue())).concat(" Player ").concat(Integer.toString(aGame.getPlayerHandValue())));
         if (result == game.WinLoseDraw.win) {
             concatString = "You Won ".concat(Integer.toString(bet).concat(" dollars"));
         } else if (result == game.WinLoseDraw.draw) {
