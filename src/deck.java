@@ -15,8 +15,6 @@ public class deck {
 
     public void shuffle() {
         // sets cards to a new 3 deck arraylist
-        if (cards.size() != 0)
-            return;
         for (int deck = 0; deck < 3; ++deck) {
             for (int suit = 0; suit < 4; ++suit) {
                 card.suitEnum tempEnum = card.suitEnum.Clubs;
