@@ -40,6 +40,7 @@ public class deck {
                             tempEnum = card.suitEnum.Clubs;
                             break;
                     }
+
                     cards.add(new card(value, Integer.toString(value), tempEnum));
                 }
                 cards.add(new card(10, "J", tempEnum));

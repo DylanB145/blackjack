@@ -15,4 +15,4 @@ Planned:
 - [x] Betting
 - [x] Doubling down
 - [x] Card counting
-- [ ] Splitting
+- [x] Splitting

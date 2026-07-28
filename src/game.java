@@ -12,11 +12,13 @@ public class game {
         gameRoundDone = false;
     }
 
-    public void roundStart() {
+    public void roundStart(int bet) {
+        gamePlayer.newRound();
         gameRoundDone = false;
         deckCheckShuffle();
-        gamePlayer.addCard(gameDeck.getCard());
-        gamePlayer.addCard(gameDeck.getCard());
+        gamePlayer.setBet(0, bet);
+        gamePlayer.addCard(gameDeck.getCard(),0);
+        gamePlayer.addCard(gameDeck.getCard(),0);
         gameDealer.addCard(gameDeck.getCard());
     }
 
@@ -26,10 +28,10 @@ public class game {
             gameDeck.shuffle();
     }
 
-    public boolean hit() {
+    public boolean hit(int index) {
         boolean busts = false;
-        gamePlayer.addCard(gameDeck.getCard());
-        if (gamePlayer.getHandValue() > 21)
+        gamePlayer.addCard(gameDeck.getCard(),index);
+        if (gamePlayer.getHandValue(index) > 21)
             busts = true;
         return busts;
     }
@@ -46,8 +48,9 @@ public class game {
         win, lose, draw
     }
 
-    public WinLoseDraw getPlayerWinsResult(int bet) {
-        int playerHandValue = gamePlayer.getHandValue();
+    public WinLoseDraw getPlayerWinsResult(int index) {
+        int bet = gamePlayer.getBet(index);
+        int playerHandValue = gamePlayer.getHandValue(index);
         int dealerHandValue = gameDealer.getHandValue();
         if (playerHandValue <= 21 && playerHandValue == dealerHandValue)
             return WinLoseDraw.draw;
@@ -63,8 +66,8 @@ public class game {
         return gamePlayer.getGainLoss();
     }
 
-    public boolean checkPlayerBlackjack() {
-        return gamePlayer.getHandValue() == 21;
+    public boolean checkPlayerBlackjack(int index) {
+        return gamePlayer.getHandValue(index) == 21;
     }
 
     public boolean checkDealerBlackjack() {
@@ -75,17 +78,17 @@ public class game {
         return gameDealer.getHandToString();
     }
 
-    public String playerGetHandToString() {
-        return gamePlayer.getHandToString();
+    public String playerGetHandToString(int index) {
+        return gamePlayer.getHandToString(index);
     }
 
     public void clearHands() {
         gameDealer.clearHand();
-        gamePlayer.clearHand();
+        gamePlayer.newRound();
     }
     
-    public int getPlayerHandValue(){
-        return gamePlayer.getHandValue();
+    public int getPlayerHandValue(int index){
+        return gamePlayer.getHandValue(index);
     }
 
     public int getDealerHandValue(){
@@ -93,5 +96,26 @@ public class game {
     }
     public int getCount(){
         return gameDeck.getCount();
+    }
+    public int getHandCount(){
+        return gamePlayer.getHandCount();
+    }
+    public boolean split(int index){
+        //if cant split returns false
+        boolean tempBool= gamePlayer.split(index);
+        if(tempBool){
+            hit(index);
+            hit(gamePlayer.getHandCount()-1);
+        }
+        return tempBool;
+    }
+    public void setBet(int bet,int index){
+        gamePlayer.setBet(index, bet);
+    }
+    public int getBet(int index){
+        return gamePlayer.getBet(index);
+    }
+    public void removeHand(int index){
+        gamePlayer.removeHand(index);
     }
 }
