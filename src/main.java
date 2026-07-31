@@ -21,15 +21,17 @@ public class main {
 
     private static boolean round() {
         int bet = ui.getBet();
-        if (bet==-1)return false;
+        if (bet == -1)
+            return false;
         boolean playerBusts;
         aGame.roundStart(bet);
         printDealerHand();
         aGame.dealerAction();
         for (int i = 0; i < aGame.getHandCount(); ++i) {
-                    printPlayerHand(i);
+            boolean ableToDouble = true;
+            printPlayerHand(i);
             playerBusts = false;
-            if ((!(aGame.checkDealerBlackjack() || aGame.checkPlayerBlackjack(i))) ) {
+            if ((!(aGame.checkDealerBlackjack() || aGame.checkPlayerBlackjack(i)))) {
                 aGame.gameRoundDone = false;
                 while (!aGame.gameRoundDone) {
                     String command = ui.getCommand();
@@ -40,18 +42,22 @@ public class main {
                                 i--;
                                 playerBusts = true;
                             }
+                            ableToDouble = false;
                             break;
                         case "stand":
                             aGame.gameRoundDone = true;
                             break;
                         case "double":
-                            aGame.setBet(bet * 2, i);
-                            if (aGame.hit(i)) {
-                                playerBusts(i);
-                                i--;
-                                playerBusts = true;
-                            }
-                            aGame.gameRoundDone = true;
+                            if (ableToDouble) {
+                                aGame.setBet(bet * 2, i);
+                                if (aGame.hit(i)) {
+                                    playerBusts(i);
+                                    i--;
+                                    playerBusts = true;
+                                    aGame.gameRoundDone = true;
+                                }
+                            } else
+                                ui.printOut("cannot double. Doubling only valid before hitting");
                             break;
                         case "split":
                             split(i);
@@ -64,12 +70,12 @@ public class main {
                         default:
                             ui.printOut("invalid command, input validation not working in ui");
                     }
-                    if (!playerBusts&&!command.equals("stand"))
+                    if (!playerBusts && !command.equals("stand"))
                         printPlayerHand(i);
                 }
 
-            } else if (aGame.checkPlayerBlackjack(i) && !aGame.checkDealerBlackjack()&& aGame.getHandCount() == 1) {
-                    aGame.setBet((int)Math.round(bet * 1.5), i);
+            } else if (aGame.checkPlayerBlackjack(i) && !aGame.checkDealerBlackjack() && aGame.getHandCount() == 1) {
+                aGame.setBet((int) Math.round(bet * 1.5), i);
             }
 
         }
@@ -85,7 +91,8 @@ public class main {
     }
 
     private static void split(int index) {
-        if(!aGame.split(index))ui.printOut("Unable to ");
+        if (!aGame.split(index))
+            ui.printOut("Unable to ");
     }
 
     private static void dealerRound() {
@@ -115,7 +122,7 @@ public class main {
         int gainLossForRound = 0;
         for (int i = 0; i < aGame.getHandCount(); ++i) {
             game.WinLoseDraw result = aGame.getPlayerWinsResult(i);
-            ui.printOut("Hand "+Integer.toString(i)+":"+(Integer.toString(aGame.getPlayerHandValue(i))));
+            ui.printOut("Hand " + Integer.toString(i) + ":" + (Integer.toString(aGame.getPlayerHandValue(i))));
 
             if (result == game.WinLoseDraw.win) {
                 gainLossForRound += aGame.getBet(i);
@@ -126,7 +133,7 @@ public class main {
         if (gainLossForRound == 0)
             ui.printOut("You broke even");
         else if (gainLossForRound < 0)
-            ui.printOut("You lost " + Integer.toString(gainLossForRound*-1) + " Total Dollars.");
+            ui.printOut("You lost " + Integer.toString(gainLossForRound * -1) + " Total Dollars.");
         else
             ui.printOut("You Won " + Integer.toString(gainLossForRound) + " Total Dollars.");
     }
