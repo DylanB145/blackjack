@@ -16,7 +16,6 @@ public class main {
         }
         ui.printOut("Your final win/loss is ".concat(Integer.toString(aGame.getPlayerGainLoss())));
         ui.printOut("The count was ".concat(Integer.toString(aGame.getCount())));
-        cleanUp();
     }
 
     private static boolean round() {
@@ -27,19 +26,19 @@ public class main {
         aGame.roundStart(bet);
         printDealerHand();
         aGame.dealerAction();
-        for (int i = 0; i < aGame.getHandCount(); ++i) {
+        for (int handIndex = 0; handIndex < aGame.getHandCount(); ++handIndex) {
             boolean ableToDouble = true;
-            printPlayerHand(i);
+            printPlayerHand(handIndex);
             playerBusts = false;
-            if ((!(aGame.checkDealerBlackjack() || aGame.checkPlayerBlackjack(i)))) {
+            if ((!(aGame.checkDealerBlackjack() || aGame.checkPlayerBlackjack(handIndex)))) {
                 aGame.gameRoundDone = false;
                 while (!aGame.gameRoundDone) {
                     String command = ui.getCommand();
                     switch (command) {
                         case "hit":
-                            if (aGame.hit(i)) {
-                                playerBusts(i);
-                                i--;
+                            if (aGame.hit(handIndex)) {
+                                playerBusts(handIndex);
+                                handIndex--;
                                 playerBusts = true;
                             }
                             ableToDouble = false;
@@ -49,10 +48,10 @@ public class main {
                             break;
                         case "double":
                             if (ableToDouble) {
-                                aGame.setBet(bet * 2, i);
-                                if (aGame.hit(i)) {
-                                    playerBusts(i);
-                                    i--;
+                                aGame.setBet(bet * 2, handIndex);
+                                if (aGame.hit(handIndex)) {
+                                    playerBusts(handIndex);
+                                    handIndex--;
                                     playerBusts = true;
                                     aGame.gameRoundDone = true;
                                 }
@@ -60,7 +59,7 @@ public class main {
                                 ui.printOut("cannot double. Doubling only valid before hitting");
                             break;
                         case "split":
-                            split(i);
+                            split(handIndex);
                             break;
                         case "exit":
                             return false;
@@ -71,11 +70,12 @@ public class main {
                             ui.printOut("invalid command, input validation not working in ui");
                     }
                     if (!playerBusts && !command.equals("stand"))
-                        printPlayerHand(i);
+                        printPlayerHand(handIndex);
                 }
 
-            } else if (aGame.checkPlayerBlackjack(i) && !aGame.checkDealerBlackjack() && aGame.getHandCount() == 1) {
-                aGame.setBet((int) Math.round(bet * 1.5), i);
+            } else if (aGame.checkPlayerBlackjack(handIndex) && !aGame.checkDealerBlackjack()
+                    && aGame.getHandCount() == 1) {
+                aGame.setBet((int) Math.round(bet * 1.5), handIndex);
             }
 
         }
@@ -86,19 +86,18 @@ public class main {
         return true;
     }
 
-    private static void cleanUp() {
-        ui.cleanUp();
-    }
-
     private static void split(int index) {
         if (!aGame.split(index))
-            ui.printOut("Unable to ");
+            ui.printOut("Unable to split");
     }
 
     private static void dealerRound() {
-        if(aGame.getDealerHandValue()>=17)printDealerHand();
-        while (!aGame.dealerAction())
+        if (aGame.getDealerHandValue() >= 17)
             printDealerHand();
+        else {
+            while (!aGame.dealerAction())
+                printDealerHand();
+        }
     }
 
     private static void playerBusts(int index) {

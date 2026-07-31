@@ -6,6 +6,7 @@ public class deck {
     private ArrayList<card> cards;
     private Random r;
     private int count;
+
     deck() {
         cards = new ArrayList<card>();
         shuffle();
@@ -20,7 +21,6 @@ public class deck {
             for (int suit = 0; suit < 4; ++suit) {
                 card.suitEnum tempEnum = card.suitEnum.Clubs;
                 for (int value = 2; value <= 10; ++value) {
-
                     switch (suit) {
                         case 0:
                             tempEnum = card.suitEnum.Spades;
@@ -51,20 +51,24 @@ public class deck {
         }
     }
 
-
     public card getCard() {
-        card tempCard =  cards.remove(r.nextInt(cards.size()));
+        card tempCard = cards.remove(r.nextInt(cards.size()));
         changeCount(tempCard.getValue());
         return tempCard;
     }
-    public int getSize(){
+
+    public int getSize() {
         return cards.size();
     }
-    private void changeCount(int cardValue){
-        if(cardValue>9)count--;
-        else if(cardValue<7)count++;
+
+    private void changeCount(int cardValue) {
+        if (cardValue > 9)
+            count--;
+        else if (cardValue < 7)
+            count++;
     }
-    public int getCount(){
+
+    public int getCount() {
         return count;
     }
 }

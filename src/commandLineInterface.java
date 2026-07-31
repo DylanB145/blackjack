@@ -11,11 +11,9 @@ public class commandLineInterface {
     public void printOut(String text) {
         System.out.println(text);
     }
-    public void cleanUp(){
-        inputScanner.close();
-    }
+
     public int getBet() {
-    //bet returns -1 if would like to quit instead 
+        // bet returns -1 if user would like to exit
         printOut("How much would you like to bet. You may also exit");
         int bet = 20;
         String input;
@@ -23,7 +21,8 @@ public class commandLineInterface {
         Scanner stringScanner;
         while (flag) {
             input = inputScanner.nextLine();
-            if(input.toLowerCase().equals("exit")) return -1;
+            if (input.toLowerCase().equals("exit"))
+                return -1;
             stringScanner = new Scanner(input);
             try {
                 bet = stringScanner.nextInt();
@@ -43,7 +42,8 @@ public class commandLineInterface {
     public String getCommand() {
         while (true) {
             String temp = (inputScanner.nextLine()).toLowerCase();
-            if (temp.equals("hit") || temp.equals("stand") || temp.equals("double") || temp.equals("split")||temp.equals("exit")||temp.equals("count"))
+            if (temp.equals("hit") || temp.equals("stand") || temp.equals("double") || temp.equals("split")
+                    || temp.equals("exit") || temp.equals("count"))
                 return temp;
             if (!temp.equals("help")) {
                 printOut("Invalid command");
@@ -59,6 +59,5 @@ public class commandLineInterface {
     public void welcomeMessage() {
         printOut("This is a basic three deck blackjack game. Dealer stands at a soft 17");
     }
-
 
 }

@@ -1,18 +1,23 @@
 public class dealer {
     private hand dealerHand;
-    dealer(){
+
+    dealer() {
         dealerHand = new hand();
     }
-    public void addCard(card aCard){
+
+    public void addCard(card aCard) {
         dealerHand.addCard(aCard);
     }
-    public int getHandValue(){
+
+    public int getHandValue() {
         return dealerHand.getValue();
     }
-    public String getHandToString(){
+
+    public String getHandToString() {
         return "dealer ".concat(dealerHand.handToString());
     }
-    public void clearHand(){
+
+    public void clearHand() {
         dealerHand.clearHand();
     }
 

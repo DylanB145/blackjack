@@ -48,8 +48,8 @@ public class player {
 
     private void addSplitHand(card aCard, int bet) {
         playerHand.add(new hand());
-        playerHand.get(playerHand.size()-1).addCard(aCard);
-        playerHand.get(playerHand.size()-1).setBet(bet);
+        playerHand.get(playerHand.size() - 1).addCard(aCard);
+        playerHand.get(playerHand.size() - 1).setBet(bet);
     }
 
     public void setBet(int index, int bet) {
