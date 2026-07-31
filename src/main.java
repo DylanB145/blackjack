@@ -96,9 +96,9 @@ public class main {
     }
 
     private static void dealerRound() {
+        if(aGame.getDealerHandValue()>=17)printDealerHand();
         while (!aGame.dealerAction())
             printDealerHand();
-        printDealerHand();
     }
 
     private static void playerBusts(int index) {
