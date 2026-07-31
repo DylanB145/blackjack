@@ -53,8 +53,8 @@ public class main {
                                     playerBusts(handIndex);
                                     handIndex--;
                                     playerBusts = true;
-                                    aGame.gameRoundDone = true;
                                 }
+                                aGame.gameRoundDone = true;
                             } else
                                 ui.printOut("cannot double. Doubling only valid before hitting");
                             break;
