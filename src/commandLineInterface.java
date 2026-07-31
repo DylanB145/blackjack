@@ -15,13 +15,19 @@ public class commandLineInterface {
         inputScanner.close();
     }
     public int getBet() {
-        printOut("How much would you like to bet");
-        int tempInt = 20;
+    //bet returns -1 if would like to quit instead 
+        printOut("How much would you like to bet. You may also exit");
+        int bet = 20;
+        String input;
         boolean flag = true;
+        Scanner stringScanner;
         while (flag) {
+            input = inputScanner.nextLine();
+            if(input.toLowerCase().equals("exit")) return -1;
+            stringScanner = new Scanner(input);
             try {
-                tempInt = inputScanner.nextInt();
-                if (tempInt > 500 || tempInt < 20)
+                bet = stringScanner.nextInt();
+                if (bet > 500 || bet < 20)
                     printOut("Maximum bet is 500, minimum bet is 20");
                 else {
                     flag = false;
@@ -29,9 +35,9 @@ public class commandLineInterface {
             } catch (Exception e) {
                 printOut("Invalid input, please try again");
             }
-            inputScanner.nextLine();
+            stringScanner.close();
         }
-        return tempInt;
+        return bet;
     }
 
     public String getCommand() {
@@ -53,14 +59,6 @@ public class commandLineInterface {
     public void welcomeMessage() {
         printOut("This is a basic three deck blackjack game. Dealer stands at a soft 17");
     }
-    public String playAgain(){
-        printOut("Would you like to play again? (y/n)");
-        while(true){
-            String temp = (inputScanner.nextLine()).toLowerCase();
-                        if (temp.equals("y") || temp.equals("n"))
-                return temp;
-            printOut("invalid answer");
-        }
-    }
+
 
 }

@@ -12,8 +12,6 @@ public class main {
         aGame = new game();
         ui.welcomeMessage();
         while (round()) {
-            if (ui.playAgain().equals("n"))
-                break;
             aGame.clearHands();
         }
         ui.printOut("Your final win/loss is ".concat(Integer.toString(aGame.getPlayerGainLoss())));
@@ -23,6 +21,7 @@ public class main {
 
     private static boolean round() {
         int bet = ui.getBet();
+        if (bet==-1)return false;
         boolean playerBusts;
         aGame.roundStart(bet);
         printDealerHand();
