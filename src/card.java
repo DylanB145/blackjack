@@ -26,7 +26,7 @@ public class card {
     public suitEnum getSuit() {
         return suit;
     }
-    
+
     // setters
     public void setAce() {
         // will only be used to change value from 11 to 1 for aces
@@ -34,5 +34,10 @@ public class card {
             value = 1;
         else
             System.err.println("Invalid value change");
+    }
+
+    public void set11() {
+        if (value == 1)
+            value = 11;
     }
 }

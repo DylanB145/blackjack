@@ -4,10 +4,11 @@ public class hand {
     //variables
     private int value;
     private ArrayList<card> cards;
-
+    private int bet;
     hand(){
         value = 0;
         cards = new ArrayList<card>();
+        bet=0;
     }
     public String handToString(){
         String output = "";
@@ -39,5 +40,23 @@ public class hand {
     public void clearHand(){
         cards.clear();
         value = 0;
+        bet=0;
+
+    }
+    public boolean checkSplit(){
+        if(cards.size()!=2)return false;
+        return ((cards.get(0).getValue()==cards.get(1).getValue())||(cards.get(0).getRank().equals("A")&&cards.get(1).getRank().equals("A")));
+    }
+    public card removeSplitCard(){
+        card tempCard = cards.remove(0);
+        value -= tempCard.getValue();
+        tempCard.set11();
+        return tempCard;
+    }
+    public int getBet(){
+        return bet;
+    }
+    public void setBet(int newBet){
+        bet=newBet;
     }
 }
