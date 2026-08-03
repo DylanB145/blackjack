@@ -56,7 +56,7 @@ public class main {
                                 }
                                 aGame.gameRoundDone = true;
                             } else
-                                ui.printOut("cannot double. Doubling only valid before hitting");
+                                ui.printOut("Cannot double. Doubling only valid before hitting");
                             break;
                         case "split":
                             split(handIndex);
@@ -67,7 +67,7 @@ public class main {
                             ui.printOut("The current count is ".concat(Integer.toString(aGame.getCount())));
                             break;
                         default:
-                            ui.printOut("invalid command, input validation not working in ui");
+                            ui.printOut("Invalid command, input validation not working in ui");
                     }
                     if (!playerBusts && !command.equals("stand"))
                         printPlayerHand(handIndex);
@@ -76,6 +76,7 @@ public class main {
             } else if (aGame.checkPlayerBlackjack(handIndex) && !aGame.checkDealerBlackjack()
                     && aGame.getHandCount() == 1) {
                 aGame.setBet((int) Math.round(bet * 1.5), handIndex);
+                ui.printOut("BLACKJACK");
             }
 
         }
@@ -92,12 +93,10 @@ public class main {
     }
 
     private static void dealerRound() {
-        if (aGame.getDealerHandValue() >= 17)
             printDealerHand();
-        else {
             while (!aGame.dealerAction())
                 printDealerHand();
-        }
+        
     }
 
     private static void playerBusts(int index) {
@@ -121,7 +120,7 @@ public class main {
         int gainLossForRound = 0;
         for (int i = 0; i < aGame.getHandCount(); ++i) {
             game.WinLoseDraw result = aGame.getPlayerWinsResult(i);
-            ui.printOut("Hand " + Integer.toString(i) + ":" + (Integer.toString(aGame.getPlayerHandValue(i))));
+            ui.printOut("Hand " + Integer.toString(i) + ": " + (Integer.toString(aGame.getPlayerHandValue(i))));
 
             if (result == game.WinLoseDraw.win) {
                 gainLossForRound += aGame.getBet(i);
@@ -132,8 +131,8 @@ public class main {
         if (gainLossForRound == 0)
             ui.printOut("You broke even");
         else if (gainLossForRound < 0)
-            ui.printOut("You lost " + Integer.toString(gainLossForRound * -1) + " Total Dollars.");
+            ui.printOut("You lost " + Integer.toString(gainLossForRound * -1) + " total dollars.");
         else
-            ui.printOut("You Won " + Integer.toString(gainLossForRound) + " Total Dollars.");
+            ui.printOut("You won " + Integer.toString(gainLossForRound) + " total dollars.");
     }
 }
